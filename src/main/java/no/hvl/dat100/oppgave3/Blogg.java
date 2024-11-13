@@ -2,49 +2,83 @@ package no.hvl.dat100.oppgave3;
 
 import no.hvl.dat100.common.TODO;
 import no.hvl.dat100.oppgave1.*;
+import no.hvl.dat100.oppgave2.Bilde;
+import no.hvl.dat100.oppgave2.Tekst;
 
 public class Blogg {
 
-	// TODO: objektvariable 
+	private Innlegg [] innleggtabell;
+	private int nesteledig; 
+	
 
 	public Blogg() {
-		throw new UnsupportedOperationException(TODO.constructor("Blogg"));
+		innleggtabell = new Innlegg[20];
+		nesteledig = 0;
 	}
 
 	public Blogg(int lengde) {
-		throw new UnsupportedOperationException(TODO.constructor("Blogg"));
+		innleggtabell = new Innlegg[lengde];
+		nesteledig = 0;
 	}
 
 	public int getAntall() {
-		throw new UnsupportedOperationException(TODO.method());
+		return nesteledig;
 	}
 	
 	public Innlegg[] getSamling() {
-		throw new UnsupportedOperationException(TODO.method());
-
+		return innleggtabell;
 	}
 	
 	public int finnInnlegg(Innlegg innlegg) {
-
-		throw new UnsupportedOperationException(TODO.method());
+		boolean funnet = false;
+		int verdi = 0;
+	 while ( verdi<nesteledig && !funnet) {
+		if (innleggtabell[verdi].erLik(innlegg)) 
+		 funnet = true;
+		else
+			verdi++;
+	 }
+		if (funnet)
+			return verdi;
+		else 
+			return -1;
 	}
-
+	
 	public boolean finnes(Innlegg innlegg) {
-		throw new UnsupportedOperationException(TODO.method());
+		if (finnInnlegg(innlegg) != -1)
+			return true;
+		else return false;
 	}
+		/*for (int i = 0; i< innleggtabell.length; i++) {
+			if (innlegg.getId() != innleggtabell[i].getId() ) {
+				return false;
+			}
+		} return true;
+	}*/
 
 	public boolean ledigPlass() {
-		throw new UnsupportedOperationException(TODO.method());
-
+		return nesteledig < innleggtabell.length;
 	}
 	
 	public boolean leggTil(Innlegg innlegg) {
-
-		throw new UnsupportedOperationException(TODO.method());
+		boolean ny = finnInnlegg(innlegg) == -1;
+	if (ny && nesteledig < innleggtabell.length) {
+		innleggtabell[nesteledig] = innlegg;
+		nesteledig++;
+		return true;
+	} else return false;
+			
 	}
-	
+		
+
 	public String toString() {
-		throw new UnsupportedOperationException(TODO.method());
+		
+		String tekstbilde = getAntall() + "\n";
+	for (int i = 0; i < getAntall(); i++) {
+	tekstbilde += innleggtabell[i].toString();
+	}
+		
+		return tekstbilde;
 	}
 
 	// valgfrie oppgaver nedenfor
